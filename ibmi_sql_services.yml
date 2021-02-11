@@ -1,0 +1,5 @@
+- name: IMi sql services
+  hosts: gestionados
+  roles:
+    - sql_services
+

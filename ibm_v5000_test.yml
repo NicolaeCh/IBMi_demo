@@ -1,0 +1,7 @@
+
+
+- name: retrive info v5030
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - v5000_test

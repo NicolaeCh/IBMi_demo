@@ -1,0 +1,29 @@
+---
+# varios commnados a ejecutar en todos los sistemas
+
+#- name: Create a library by using CL command CRTLIB
+#  ibmi_cl_command:
+#    cmd: 'CRTLIB LIB(SAYTEL)'
+#  ignore_errors: yes
+
+- name: Grant SAYTEL authority TO LIB
+  ibmi_object_authority:
+    operation: grant
+    object_name: SAYTEL
+    object_type: '*LIB'
+    user: SAYTEL
+    authority: '*ALL'
+  ignore_errors: yes
+
+#- name: Añade sistemas a tabla de host
+#  ibmi_cl_command:
+#    cmd: ADDTCPHTE INTNETADR({{item.value.IP}}) HOSTNAME(({{item.value.nombre}}))
+#  with_dict: "{{sistemas}}"
+
+
+- name: Añade sistemas a tabla de host
+  command: system ADDTCPHTE INTNETADR({{item.value.IP}}) HOSTNAME(({{item.value.nombre}}))
+  with_dict: "{{sistemas}}"
+
+
+

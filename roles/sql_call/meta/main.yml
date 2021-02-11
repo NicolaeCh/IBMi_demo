@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Nicolae Chirea
+  description: system architect
+  company: Saytel
+
+  license: license (GPL-2.0-or-later, MIT, etc)
+
+  min_ansible_version: 2.9
+
+  
+collections:
+  - ibm.power_ibmi

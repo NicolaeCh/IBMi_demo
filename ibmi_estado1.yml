@@ -1,0 +1,6 @@
+- name: IMi sql services
+  hosts: gestionados
+  gather_facts: no
+  roles:
+    - ibmi_estado1
+

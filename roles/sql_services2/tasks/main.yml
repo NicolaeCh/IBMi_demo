@@ -1,0 +1,29 @@
+---
+# recupera daro de lib y los formatea
+- name: info  library
+  ibmi_sql_query:
+    sql: "SELECT * FROM TABLE(QSYS2.LIBRARY_INFO({{biblioteca }}));"
+  register: lib_info
+- name: libinfo  "{{biblioteca}}"  
+  debug:
+    var: lib_info.row
+
+- name: Crea datos desde la info recuperada
+  set_fact:
+   datos: "{{ datos|default({}) | combine( {item.IASP_NAME: item.LIBRARY_SIZE} ) }}"
+  with_items: "{{ lib_info.row }}"
+
+
+- name: date generate
+  debug:
+    var: datos
+
+- name: Crea datos 2
+  set_fact:
+   datos2: "{{ datos2|default([]) + [ {'nombre_iasp' : item.IASP_NAME, 'size_lib' : item.LIBRARY_SIZE} ] }}"
+  with_items: "{{ lib_info.row }}"
+
+
+- name: date generate 2
+  debug:
+    var: datos2

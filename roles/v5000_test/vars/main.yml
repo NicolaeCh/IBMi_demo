@@ -1,0 +1,5 @@
+---
+# vars file for IBMi_test
+nombrecluster: 172.16.221.76
+usuario: superuser
+identity: passw0rd

@@ -1,0 +1,12 @@
+---
+# varios commnados a ejecutar en todos los sistemas
+
+- name: ejecuta cl a traves del qcmdº
+  ibmi_sql_execute:
+    sql: "CALL QSYS2.QCMDEXC('wrkactjob')"
+  register: resultado
+
+- name: ver el resultado
+  debug: 
+    var: resultado
+

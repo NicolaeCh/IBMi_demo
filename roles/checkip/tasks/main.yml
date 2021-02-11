@@ -1,0 +1,19 @@
+---
+# tasks file for IBMi checkip
+- name: query an interface by alias name
+  ibmi_tcp_interface:
+    alias_name: "{{nombre_alias}}"
+    state: 'present'
+  register: queryip
+
+- name: muestra el comando ejecutado
+  debug: 
+    msg: El mandato ejecutado ha sido {{queryip.cl_command}}
+
+- name: muestra valores de la interfaz
+  debug: 
+    msg: Los valores de la interfaz {{queryip.interface_info}}
+
+- name: muestra la variable entera
+  debug:
+    var: queryip

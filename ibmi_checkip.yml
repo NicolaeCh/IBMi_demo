@@ -1,0 +1,5 @@
+- name: verifica el estado de la interfazde usuarios
+  hosts: ibmi
+  gather_facts: no
+  roles:
+    - checkip

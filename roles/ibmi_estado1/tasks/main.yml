@@ -1,0 +1,37 @@
+---
+# tasks file for IBMi_test
+- name: Ocupacion de disco
+  ibmi_sql_query:
+    sql: "select ASP_NUMBER, TOTAL_CAPACITY_AVAILABLE, TOTAL_CAPACITY, DEC(DEC(TOTAL_CAPACITY_AVAILABLE, 19, 2)/ DEC(TOTAL_CAPACITY, 19, 2) * 100, 19, 2) AS AVAILABLE_SPACE from qsys2.asp_info"
+  register: sql_query_result
+- name: La ocupacion de disco es  
+  debug:
+    var: sql_query_result.row
+
+
+
+
+- name: History log - ultima hora gravedad >50
+  ibmi_sql_query:
+    sql: "SELECT X.MESSAGE_ID, X.MESSAGE_TIMESTAMP, X.FROM_USER, X.FROM_JOB,X.MESSAGE_ID, X.MESSAGE_TEXT FROM TABLE(QSYS2.HISTORY_LOG_INFO(CURRENT TIMESTAMP - 1 HOUR)) X WHERE X.SEVERITY > 50"
+  register: sql_query_result2
+- name: History log ultima hora 
+  debug:
+    var: sql_query_result2.row
+
+
+- name: Los 10 trabajos que mas espacio temporal consumen
+  ibmi_sql_query:
+    sql: "SELECT JOB_NAME, AUTHORIZATION_NAME, TEMPORARY_STORAGE, SQL_STATEMENT_TEXT, J.*  FROM TABLE (QSYS2.ACTIVE_JOB_INFO(DETAILED_INFO => 'ALL')) J  WHERE JOB_TYPE <> 'SYS' ORDER BY TEMPORARY_STORAGE DESC FETCH FIRST 10 ROWS ONLY" 
+  register: sql_temp_space
+- name: Listado 10 trbajos que mas espacio temporal consumen 
+  debug:
+    var: sql_temp_space.row
+
+- name: Los 10 trabajos que mas CPU consumen
+  ibmi_sql_query:
+    sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM,  ELAPSED_CPU_PERCENTAGE AS PERCENT, CPU_TIME, FUNCTION FROM  TABLE(QSYS2.ACTIVE_JOB_INFO(JOB_NAME_FILTER => '*ALL')) A WHERE CPU_TIME > 100000 AND ELAPSED_CPU_PERCENTAGE>1 ORDER BY ELAPSED_CPU_PERCENTAGE DESC  FETCH FIRST 10 ROWS ONLY" 
+  register: sql_cpu
+- name: Listado 10 trbajos que mas espacio temporal consumen 
+  debug:
+    var: sql_cpu.row

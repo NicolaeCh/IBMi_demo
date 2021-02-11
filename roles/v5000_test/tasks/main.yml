@@ -1,0 +1,37 @@
+---
+# tasks file for IBMi_test
+- name: Get host info
+  ibm_svc_info:
+    clustername: "{{nombrecluster}}"
+    username: "{{usuario}}"
+    password: "{{identity}}"
+    name: testvol
+    log_path: /tmp/ansible.log
+    objectname: ESX2_COLT_CLIENTES
+    state: info
+    gather_subset: host
+  register: info_host
+
+- name: info recuperada
+  debug: 
+    var: info_host
+
+- name: Get host info2
+  ibm_svc_info:
+    clustername: "{{nombrecluster}}"
+    username: "{{usuario}}"
+    password: "{{identity}}"
+    name: testvol2
+    log_path: /tmp/ansible.log
+    state: info
+    gather_subset: host
+  register: info_host2
+
+- name: info recuperada2
+  set_fact:
+    datos: "{{ datos|default({}) | combine( {item.Host.name: item.Host.id} ) }}"
+  with_items: "{{ info_host2}}"
+
+- name: tabla de datos
+  debug: 
+    var: datos

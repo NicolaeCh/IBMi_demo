@@ -1,0 +1,12 @@
+---
+# vars file for IBMi_test
+sistemas:
+  v7r4a:
+    nombre: 'V7R4A'
+    IP: 172.16.221.128
+  v7r4b:
+    nombre: 'V7R4B'
+    IP: 172.16.221.130
+  v7r4c:
+    nombre: 'V7R4C'
+    IP: 172.016.221.124

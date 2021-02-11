@@ -1,0 +1,6 @@
+- name: IMi sql services
+  hosts: ibmi
+  gather_facts: no
+  roles:
+    - cl_commands
+
