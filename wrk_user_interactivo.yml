@@ -1,0 +1,13 @@
+- name: Crea usuario
+  hosts: ibmi
+  gather_facts: no
+
+  vars_prompt:
+    - name: usuario
+      prompt:  nombre de usuario?
+      private: no
+    - name: pass
+      prompt: contraseña?
+
+  roles:
+    - wrk_user_interactivo

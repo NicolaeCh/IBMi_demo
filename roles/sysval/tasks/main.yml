@@ -1,0 +1,21 @@
+
+#  tasks file 
+    - name: Display many system values
+      ibmi_sysval:
+        sysvalue:
+          - {'name':'qccsid'}
+          - {'name':'qmaxsign'}
+          - {'name':'qautovrt'}
+      register: dissysval_result
+
+
+    - name: valores
+      debug: 
+        msg: 
+          - El "{{ dissysval_result.sysval[0].name }}" es  "{{ dissysval_result.sysval[0].value }}"
+          - El "{{ dissysval_result.sysval[1].name }}" es  "{{ dissysval_result.sysval[1].value }}"
+          - El "{{ dissysval_result.sysval[2].name }}" es  "{{ dissysval_result.sysval[2].value }}"
+    - name: valores en loop
+      debug:
+        msg: El "{{ item.name }}" es  "{{ item.value }}"
+      loop: "{{ dissysval_result.sysval }}"

@@ -1,0 +1,21 @@
+#  tasks file
+- name: '"{{operacion}}"  user profile'
+  ibmi_user_and_group:
+    operation: "{{operacion}}"
+    user: "{{item}}"
+    user_class: "{{clase_usuario}}"
+    expire: "{{expira}}"
+    parameters: "{{parametros}}"
+    password: "{{pass}}"
+    special_authority: "{{autorizacion}}"
+    status: "{{estado}}"
+    user_group: "{{grupo}}"
+  register: resultado
+  loop: "{{usuarios}}"
+
+- name: comado ejecutado y su resultado
+  debug: 
+    msg: "{{item.stdout}}"
+  loop: "{{resultado.results}}"
+
+

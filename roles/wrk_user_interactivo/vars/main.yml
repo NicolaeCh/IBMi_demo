@@ -1,0 +1,8 @@
+# other variables for the role
+clase_usuario: '*USER'            #valores validos  *USER, *SYSOPR, *PGMR, *SECADM, *SECOFR, *SAME
+expira: '*YES'
+operacion: 'create'               #valores validos : change, create
+parametros: 'LANGID(ENG)  CNTRYID(US) CCSID(37)'
+autorizacion: '*USRCLS'           # valores validos USRCLS, *NONE, *SAME, *ALLOBJ, *AUDIT, *JOBCTL, *SAVSYS, *IOSYSCFG, *SECADM, *SERVICE, *SPLCTL
+estado: '*ENABLED'                # valores validos  *ENABLED, *DISABLED
+grupo: '*NONE'

@@ -1,0 +1,3 @@
+# other variables for the role
+become_user_name: null
+become_user_password: null

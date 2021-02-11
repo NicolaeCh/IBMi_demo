@@ -1,0 +1,5 @@
+- name: work mangement con sql services
+  hosts: ibmi
+  gather_facts: no
+  roles:
+    - work_mangement

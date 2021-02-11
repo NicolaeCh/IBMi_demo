@@ -1,0 +1,5 @@
+- name: Crea usuarios especificados en variables
+  hosts: ibmi
+  gather_facts: no
+  roles:
+    - wrk_multiple_user

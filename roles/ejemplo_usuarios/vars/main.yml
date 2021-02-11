@@ -1,0 +1,5 @@
+# other variables for the role
+usuarios:
+  - paco
+  - pepe
+clase_usuario: '*USER'

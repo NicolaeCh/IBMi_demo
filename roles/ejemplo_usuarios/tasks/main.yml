@@ -1,0 +1,27 @@
+#  tasks file
+- name: create user profile
+  ibmi_user_and_group:
+#    operation: 'create'
+    operation: 'change'
+    user: "{{item}}"
+#    text: Usuario "{{ item }}" creado por ansible
+    user_class: "{{ clase_usuario }}"
+    expire: '*YES'
+    parameters: 'LANGID(ENG)  CNTRYID(US) CCSID(37)'
+#     LANGID: ESP
+#      CNTRYID: ES
+#      CCSID: 284
+  register: resultado
+  loop: "{{usuarios}}"
+
+- name: iteracion en el joblog
+  debug: 
+    msg: "{{item.stdout}}"
+  loop: "{{resultado.results}}"
+  ignore_errors: True
+
+
+- name: comando y resultado
+  debug:
+    msg: ' "{{item.item}}" "{{item.command}}"  "{{item.failed}}" '
+  loop: "{{resultado.results}}"

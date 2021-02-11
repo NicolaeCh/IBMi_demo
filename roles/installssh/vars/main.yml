@@ -1,0 +1,3 @@
+# other variables for the role
+target_user: 'saytel'
+home_dir: /home/SAYTEL

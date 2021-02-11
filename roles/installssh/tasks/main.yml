@@ -1,0 +1,27 @@
+#  tasks file
+- name: Set authorized key taken from file
+  authorized_key:
+    user: '{{target_user}}'
+    state: present
+    key: "{{ lookup('file', '/home/SAYTEL/.ssh/id_rsa.pub') }}"
+
+- name: the authority of home directory has to be 0700
+  file:
+    path: '{{home_dir}}'
+    state: directory
+    mode: '0700'
+    owner: '{{target_user}}'
+
+- name: the authority of .ssh directory has to be 0700
+  file:
+    path: '{{home_dir}}/.ssh'
+    state: directory
+    mode: '0700'
+    owner: '{{target_user}}'
+
+- name: the authority of authorized_keys has to be 0600
+  file:
+    path: '{{home_dir}}/.ssh/authorized_keys'
+    state: file
+    mode: '0600'
+    owner: '{{target_user}}'
