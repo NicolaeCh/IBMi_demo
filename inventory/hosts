@@ -1,12 +1,20 @@
 [ibmi]
-localhost ansible_connection=local
-idoctor ansible_host=172.16.210.57
-v7r3 ansible_host=172.16.210.56
+localhost ansible_connection=local ansible_python_interpreter="/QOpensys/pkgs/bin/python3"
+idoctor ansible_host=172.16.210.57 ansible_python_interpreter="/QOpensys/pkgs/bin/python3"
+v7r3 ansible_host=172.16.210.56 ansible_python_interpreter="/QOpensys/pkgs/bin/python3"
 
+[ibmi_remotos]
+idoctor ansible_host=172.16.210.57 ansible_python_interpreter="/QOpensys/pkgs/bin/python3"
+v7r3 ansible_host=172.16.210.56 ansible_python_interpreter="/QOpensys/pkgs/bin/python3"
+
+
+[aix]
+vmrecovery ansible_host=172.16.210.90 ansible_python_interpreter=/opt/freeware/bin/python3
+aspera1 ansible_host=172.16.210.204 ansible_python_interpreter=/opt/freeware/bin/python3
 
 
 [all:vars]
-ansible_python_interpreter="/QOpensys/pkgs/bin/python3"
+
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_user=saytel
-# ansible_ssh_pass=
+ansible_ssh_pass=letyas

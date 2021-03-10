@@ -1,3 +1,5 @@
 # other variables for the role
 target_user: 'saytel'
 home_dir: /home/SAYTEL
+ansible_python_interpreter: /opt/freeware/bin/python3
+
