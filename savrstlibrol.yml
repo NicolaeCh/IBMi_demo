@@ -1,0 +1,13 @@
+- name: Salvar la  biblioteca en local
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - savlib
+
+
+
+- name: traspaso y restaurado
+  hosts: ibmi_remotos
+  gather_facts: no
+  roles:
+    - cpyrstlib

@@ -1,0 +1,66 @@
+
+
+
+- name: Salvar y enviar una biblioteca
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars_prompt:
+    - name: biblioteca
+      prompt:  'Biblioteca a salvar'
+      private: no
+
+    - name: savf
+      prompt:  'fichero de salvar'
+      private: no
+      default: savans
+
+    - name: savflib
+      prompt:  'Biblioteca fichero de salvar'
+      private: no
+      default: qusrsys
+
+  vars:
+    rlsdestino: '*CURRENT'      
+   
+
+  tasks:
+    - name:  'Salvar biblioteca "{{biblioteca}}"  en savf "{{savf}}"'
+      ibmi_lib_save:
+        lib_name: "{{biblioteca}}"
+        savefile_name: "{{savf}}"
+        savefile_lib: "{{savflib}}"
+        force_save: True
+        target_release: "{{rlsdestino}}"
+        
+    - set_fact: 
+        libsavf: "{{savflib}}"
+        savfrst: "{{savf}}"
+        librst: "{{biblioteca}}"
+
+   
+- hosts: ibmi_remotos
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi 
+  vars: 
+    - savfrst: "{{ hostvars['localhost']['savfrst'] }}"
+    - libsavf: "{{ hostvars['localhost']['libsavf'] }}"
+    - librst: "{{ hostvars['localhost']['librst'] }}" 
+    - linkorigen: "{{ ''.join(('/qsys.lib/',libsavf,'.lib/')) }}"
+     
+  tasks:
+    - name: 'Envia "{{savfrst}}" a los sistemas remotos'
+      ibmi_copy:
+        src: "{{ ''.join((linkorigen,savfrst,'.file')) }}"
+        lib_name: "{{libsavf}}"
+        force: True
+        backup: False
+
+    - name: 'Restaura la biblioteca "{{librst}}"'
+      ibmi_lib_restore:
+        saved_lib: "{{librst}}"
+        savefile_name: "{{savfrst}}"
+        savefile_lib: "{{libsavf}}"

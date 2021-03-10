@@ -1,0 +1,5 @@
+# other variables for the role
+savflocal: /qsys.lib/qusrsys.lib/savfans.file
+libdestino: QUSRSYS
+libsalvada: TEST1
+savf: savfans

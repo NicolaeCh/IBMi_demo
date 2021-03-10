@@ -1,0 +1,27 @@
+- name: Muestra valores  usuario
+  hosts: ibmi
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars_prompt:
+    - name: usuario
+      prompt:  nombre de usuario?
+      private: no
+
+  vars:
+    clase_usuario: '*USER'            #valores validos  *USER, *SYSOPR, *PGMR, *SECADM, *SECOFR, *SAME
+    expira: '*YES'
+    operacion: 'display'               #valores validos : change, create
+
+
+  tasks:
+    - name: Muestra valores usuario
+      ibmi_user_and_group:
+        operation: "{{operacion}}"
+        user: "{{usuario}}"
+      register: resultado
+
+    - name: comado ejecutado y su resultado
+      debug:
+        msg: "{{resultado}}"

@@ -1,0 +1,9 @@
+#  tasks file 
+
+- name:  'Salvar biblioteca "{{biblioteca}}"  en savf "{{savf}}"'
+  ibmi_lib_save:
+    lib_name: "{{biblioteca}}"
+    savefile_name: "{{savf}}"
+    savefile_lib: "{{savflib}}"
+    force_save: True
+    target_release: "{{rlsdestino}}"

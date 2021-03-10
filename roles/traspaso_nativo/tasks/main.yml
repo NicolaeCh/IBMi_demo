@@ -1,0 +1,24 @@
+- name: Creates directory v7r3
+  file:
+    path: /v7r3
+    state: directory
+
+- name: Creates directory ptf en v7r3
+  file:
+    path: /v7r3/ptf
+    state: directory
+
+- name: copia los ficheros del directorio ptf
+  copy:
+    src: /v7r3/ptf
+    dest: /v7r3/ptf
+
+
+- name: Instala ptfs desde el catalogo de imagenes
+  ibmi_fix_imgclg:
+    src: /v7r3/ptf/ptf
+    virtual_image_name_list:
+      - SF99703_1.bin
+      - SF99703_2.bin
+      - SF99703_3.bin
+      - SF99703_4.bin
