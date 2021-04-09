@@ -1,0 +1,26 @@
+- name: visualiza PTF
+  hosts: ibmi
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars_prompt:
+    - name: producto
+      prompt:  nombre producto - 5770999, 5770SS1, ETC
+      private: no
+      default: '*ONLY'
+    - name: nombreptf
+      prompt:  ptf a visualizar
+      private: no
+
+
+  tasks:
+    - name: 'Estado ptf "{{nombreptf}}" '
+      ibmi_display_fix:
+        product: "{{producto}}"
+        ptf: "{{nombreptf}}"
+      register: resultado
+
+    - name: comado ejecutado y su resultado
+      debug:
+        msg: "{{resultado.ptf_info}}"

@@ -1,5 +1,6 @@
-- name: IMi sql services
-  hosts: gestionados
+- name: IBMi sql services
+  hosts: ibmi
+  gather_facts: no
   roles:
     - sql_services
 

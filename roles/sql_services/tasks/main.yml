@@ -17,11 +17,11 @@
     var: sql_query_result1.row
 
 
-- name: History log - ultima hora
+- name: History log - ultima hora gravedad > 60
   ibmi_sql_query:
-    sql: "SELECT X.MESSAGE_ID, X.MESSAGE_TIMESTAMP, X.FROM_USER, X.FROM_JOB,X.MESSAGE_ID, X.MESSAGE_TEXT FROM TABLE(QSYS2.HISTORY_LOG_INFO(CURRENT TIMESTAMP - 1 HOUR)) X WHERE X.SEVERITY > 10"
+    sql: "SELECT X.MESSAGE_ID, X.MESSAGE_TIMESTAMP, X.FROM_USER, X.FROM_JOB,X.MESSAGE_ID, X.MESSAGE_TEXT FROM TABLE(QSYS2.HISTORY_LOG_INFO(CURRENT TIMESTAMP - 1 HOUR)) X WHERE X.SEVERITY > 60"
   register: sql_query_result2
-- name: History log ultima hora 
+- name: History log ultima hora gravedad > 60
   debug:
     var: sql_query_result2.row
 

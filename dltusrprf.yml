@@ -1,0 +1,32 @@
+- name: Borra usuario
+  hosts: ibmi
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars_prompt:
+    - name: usuario
+      prompt:  nombre de usuario?
+      private: no
+
+  vars:
+    clase_usuario: '*USER'            #valores validos  *USER, *SYSOPR, *PGMR, *SECADM, *SECOFR, *SAME
+    expira: '*YES'
+    operacion: 'delete'               #valores validos : change, create
+    parametros: 'OWNOBJOPT(*CHGOWN QSECOFR)'
+    autorizacion: '*USRCLS'           # valores validos USRCLS, *NONE, *SAME, *ALLOBJ, *AUDIT, *JOBCTL, *SAVSYS, *IOSYSCFG, *SECADM, *SERVICE, *SPLCTL
+    estado: '*ENABLED'                # valores validos  *ENABLED, *DISABLED
+    grupo: '*NONE'
+
+
+  tasks:
+    - name: Borra usuario
+      ibmi_user_and_group:
+        operation: "{{operacion}}"
+        user: "{{usuario}}"
+        parameters: "{{parametros}}"
+      register: resultado
+
+    - name: comado ejecutado y su resultado
+      debug:
+        msg: "{{resultado}}"

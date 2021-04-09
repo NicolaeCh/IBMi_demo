@@ -1,0 +1,13 @@
+#  tasks file 
+- name: 'Copia "{{savflocal}}" a los sistemas remotos'
+  ibmi_copy:
+    src: "{{savflocal}}"
+    lib_name: "{{libdestino}}"
+    force: True
+    backup: False
+
+- name: 'Restaura la biblioteca "{{libsalvada}}"'
+  ibm.power_ibmi.ibmi_lib_restore:
+    saved_lib: "{{libsalvada}}"
+    savefile_name: "{{savf}}"
+    savefile_lib: "{{libdestino}}"

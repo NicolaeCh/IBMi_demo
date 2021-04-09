@@ -1,4 +1,4 @@
-- name: IMi sql services
+- name: IBMi  comandos CL
   hosts: ibmi
   gather_facts: no
   roles:

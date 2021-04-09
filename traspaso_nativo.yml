@@ -1,0 +1,5 @@
+- name: traspaso e instalacion de grupo de ptfs
+  hosts: ibmi_remotos
+  gather_facts: no
+  roles:
+    - traspaso_nativo

@@ -1,5 +1,5 @@
 ---
-# recupera daro de lib y los formatea
+# recupera info lib
 - name: info  library
   ibmi_sql_query:
     sql: "SELECT * FROM TABLE(QSYS2.LIBRARY_INFO({{biblioteca }}));"

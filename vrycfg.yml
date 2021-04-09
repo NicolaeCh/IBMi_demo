@@ -1,0 +1,26 @@
+- name: activa o desactiva dispositivo
+  hosts: ibmi
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars_prompt:
+    - name: dispositivo
+      prompt:  nombre dispositivos, separados por coma
+      private: no
+    - name: estado
+      prompt:  estado dispositivo *ON  o *OFF
+      private: no
+      default: '*ON'
+
+
+  tasks:
+    - name: ' "{{estado}}"  dipositivo '
+      ibmi_device_vary:
+        device_list: "{{dispositivo}}"
+        status: "{{estado}}"
+      register: resultado
+
+    - name: comado ejecutado y su resultado
+      debug:
+        msg: "{{resultado}}"

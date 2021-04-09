@@ -1,5 +1,5 @@
 - name: Enviar la clave ssh 
-  hosts: ibmi
+  hosts: aix
   gather_facts: no
   roles:
     - installssh

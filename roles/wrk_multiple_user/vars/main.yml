@@ -1,10 +1,10 @@
 # other variables for the role
 usuarios:
-  - paco1
-  - pepe1
+  - roberto
+  - jose1
 clase_usuario: '*USER'            #valores validos  *USER, *SYSOPR, *PGMR, *SECADM, *SECOFR, *SAME
 expira: '*YES'
-operacion: 'change'               #valores validos : change, create
+operacion: 'create'               #valores validos : change, create
 parametros: 'LANGID(ENG)  CNTRYID(US) CCSID(37)'
 pass: '*SAME'                     # valores validos *USRPRF (solo create), *NONE, *SAME
 autorizacion: '*USRCLS'           # valores validos USRCLS, *NONE, *SAME, *ALLOBJ, *AUDIT, *JOBCTL, *SAVSYS, *IOSYSCFG, *SECADM, *SERVICE, *SPLCTL

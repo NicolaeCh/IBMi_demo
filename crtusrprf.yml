@@ -1,0 +1,46 @@
+- name: Crea usuario
+  hosts: ibmi
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars_prompt:
+    - name: usuario
+      prompt:  nombre de usuario?
+      private: no
+    - name: pass
+      prompt: contraseña?
+      default: '*SAME'
+    - name: jobdesc
+      prompt: Descripcion de trabajo
+      default: 'QGPL/QDFTJOBD'
+      private: no
+
+
+  vars:
+    clase_usuario: '*USER'            #valores validos  *USER, *SYSOPR, *PGMR, *SECADM, *SECOFR, *SAME
+    expira: '*YES'
+    operacion: 'create'               #valores validos : change, create
+    parametros: "{{ ''.join(('JOBD(',jobdesc,')')) }}"
+    autorizacion: '*USRCLS'           # valores validos USRCLS, *NONE, *SAME, *ALLOBJ, *AUDIT, *JOBCTL, *SAVSYS, *IOSYSCFG, *SECADM, *SERVICE, *SPLCTL
+    estado: '*ENABLED'                # valores validos  *ENABLED, *DISABLED
+    grupo: '*NONE'
+
+
+  tasks:
+    - name: Crea usuario
+      ibmi_user_and_group:
+        operation: "{{operacion}}"
+        user: "{{usuario}}"
+        user_class: "{{clase_usuario}}"
+        expire: "{{expira}}"
+        parameters: "{{parametros}}"
+        password: "{{pass}}"
+        special_authority: "{{autorizacion}}"
+        status: "{{estado}}"
+        user_group: "{{grupo}}"
+      register: resultado
+
+    - name: comado ejecutado y su resultado
+      debug:
+        msg: "{{resultado}}"
