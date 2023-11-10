@@ -1,0 +1,31 @@
+- name: reset user password
+  hosts: ibmi
+  gather_facts: no
+  collections:
+    - ibm.power_ibmi
+
+  vars:
+    nombre_usuario: {{usuario}}
+    mail_usuario: {{email}}
+    
+
+
+  tasks:
+    - name: generate random password
+      ansible.builtin.set_fact:
+        nueva_pass: "{{ lookup('community.general.random_string', length=8) }}"
+
+    - name: ibm i change user profile
+      ibm.power_ibmi.ibmi_user_and_group:
+        operation: 'change'
+        user: "{{nombre_usuario}}"
+        status: '*ENABLED'
+        password: "{{nueva_pass}}"
+        expire: '*YES'
+    
+    - name: Send an email to user
+    
+
+
+
+
